@@ -9,6 +9,9 @@ function Counter() {
 	// Triggers an action
 	const dispatch = useDispatch();
 
+	// Track the state of the input
+	const [incrementAmount, setIncrementAmount] = useState(0);
+
 	return (
 		<section>
 			<p>{count}</p>
@@ -17,7 +20,11 @@ function Counter() {
 
 			<br />
 
-			<input type="text" />
+			<input
+				type="text"
+				value={incrementAmount}
+				onChange={(event) => setIncrementAmount(event.target.value)}
+			/>
 
 			<br />
 
