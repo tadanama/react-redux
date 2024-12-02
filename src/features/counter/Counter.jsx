@@ -19,8 +19,8 @@ function Counter() {
 	return (
 		<section>
 			<p>{count}</p>
-			<button>+</button>
-			<button>-</button>
+			<button onClick={() => dispatch(increment())}>+</button>
+			<button onClick={() => dispatch(decrement())}>-</button>
 
 			<br />
 
@@ -32,8 +32,10 @@ function Counter() {
 
 			<br />
 
-			<button>Increment by amount</button>
-			<button>Reset</button>
+			<button onClick={() => dispatch(incrementByAmount(addValue))}>
+				Increment by amount
+			</button>
+			<button onClick={() => dispatch(reset())}>Reset</button>
 		</section>
 	);
 }
