@@ -12,6 +12,10 @@ function Counter() {
 	// Track the state of the input
 	const [incrementAmount, setIncrementAmount] = useState(0);
 
+	// Returns the number if it is a number
+	// If it is a string, returns NaN (falsy value)
+	const addValue = Number(incrementAmount) || 0;
+
 	return (
 		<section>
 			<p>{count}</p>
