@@ -30,6 +30,21 @@ export const counterSlice = createSlice({
 			state.count += action.payload;
 		},
 	},
+	// When async thunk is defined, there are 3 states it will have
+	// Pending when it is performing the async operation
+	// Fulfilled when the async operation is completed
+	// Rejection if there is an error when executing the async operation
+	extraReducers: (builder) => {
+		builder
+			.addCase(incrementAsync.pending, () => {
+				// Log the string when incrementAsync is pending
+				// Wait 1 sec in this case because the promise is resolved after 1 sec
+				console.log("Asynchronous increment is pending.");
+			})
+			.addCase(incrementAsync.fulfilled, (state, action) => {
+				state.count += action.payload;
+			});
+	},
 });
 
 // Defining an async action
@@ -42,7 +57,6 @@ export const incrementAsync = createAsyncThunk(
 		return amount;
 	}
 );
-
 
 export const { increment, decrement, reset, incrementByAmount } =
 	counterSlice.actions;
