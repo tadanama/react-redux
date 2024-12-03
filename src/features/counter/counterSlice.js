@@ -8,11 +8,12 @@ const initialState = {
 // When an application needs multiple state, we can divide them into slices
 // If there is state for eg. posts and users,  each will need a slice to track their state
 export const counterSlice = createSlice({
-    // Slice name
+	// Slice name
 	name: "counter",
 	initialState,
-    // Functions that will execute to change the state
-    // Triggers when an action (dispatch hook) has occured
+	// Functions that will execute to change the state
+	// Triggers when an action (dispatch hook) has occured
+	// Synchronous action below inside the reducer is actually named counter/increment "<sliceName>/<actionName>"
 	reducers: {
 		increment: (state) => {
 			state.count += 1;
@@ -24,8 +25,8 @@ export const counterSlice = createSlice({
 			state.count = 0;
 		},
 		incrementByAmount: (state, action) => {
-            // Takes the paylaod from the action
-            // Set it to the value of the current state
+			// Takes the paylaod from the action
+			// Set it to the value of the current state
 			state.count += action.payload;
 		},
 	},
