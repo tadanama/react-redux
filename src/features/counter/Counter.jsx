@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { increment, decrement, incrementByAmount, reset } from "./counterSlice";
+import { increment, decrement, incrementByAmount, reset, incrementAsync } from "./counterSlice";
 
 function Counter() {
 	// Retrieve the state from redux
@@ -36,6 +36,8 @@ function Counter() {
 				Increment by amount
 			</button>
 			<button onClick={() => dispatch(reset())}>Reset</button>
+			{/* It will increment the counter by 100 after 1 sec */}
+			<button onClick={() => dispatch(incrementAsync(100))}>Asynchronous increment</button>
 		</section>
 	);
 }
