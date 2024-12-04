@@ -17,8 +17,8 @@ export const postApiSlice = createApi({
                 // Make a post request to "https://jsonplaceholder.typicode.com/posts"
                 // Post that is in the arguments is passed using useCreatePostMutation custom hook
 				query: (post) => ({
-					url: "/post",
-					method: "Post",
+					url: "/posts",
+					method: "POST",
 					body: post,
 				}),
 			}),
