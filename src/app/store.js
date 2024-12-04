@@ -7,4 +7,8 @@ export const store = configureStore({
 		counter: counterReducer,
 		[postApiSlice.reducerPath]: postApiSlice.reducer,
 	},
+	// Middleware enables caching functionality
+	middleware: (getDefaultMiddleware) => {
+		return getDefaultMiddleware().concat(postApiSlice.middleware);
+	},
 });
