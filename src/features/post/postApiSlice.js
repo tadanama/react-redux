@@ -12,8 +12,18 @@ export const postApiSlice = createApi({
 				// Fetch posts at "https://jsonplaceholder.typicode.com/posts"
 				query: () => "/posts",
 			}),
+			createPost: builder.mutation({ 
+                // Create new post
+                // Make a post request to "https://jsonplaceholder.typicode.com/posts"
+                // Post that is in the arguments is passed using useCreatePostMutation custom hook
+				query: (post) => ({
+					url: "/post",
+					method: "Post",
+					body: post,
+				}),
+			}),
 		};
 	},
 });
 
-export const { useGetPostsQuery } = postApiSlice;
+export const { useGetPostsQuery, useCreatePostMutation } = postApiSlice;
