@@ -11,8 +11,14 @@ function PostsList() {
 	// Will return an array of posts because an array of posts is its initial state
 	const posts = useSelector(selectAllPosts);
 
+	// Sort the post
+	// Recent post should go to the top
+	const orderedPosts = posts
+		.slice()
+		.sort((a, b) => b.date.localeCompare(a.date));
+
 	// Map through all of the elements to display title, content and author
-	const renderedPosts = posts.map((post) => (
+	const renderedPosts = orderedPosts.map((post) => (
 		<article key={post.id}>
 			<h2>{post.title}</h2>
 			<p>{post.content}</p>
