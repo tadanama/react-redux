@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const initialState = [
 	{
@@ -13,17 +13,41 @@ const initialState = [
 	},
 ];
 
-const postApiSlice = createSlice({
+const postSlice = createSlice({
 	name: "posts",
 	initialState,
-	reducers: {},
+	reducers: {
+		addedPost: {
+			reducer(state, action) {
+				// Returns the action
+				// {type: "posts/addedPost, payload:{}"}
+				console.log(action);
+				// Display content of the payload
+				console.log(action.payload);
+				// Appending the array
+				// Did'nt have to specify state.post because already inside the post slice
+				state.push(action.payload);
+			},
+            // Format the payload
+			prepare(title, content, userId) {
+				return {
+					payload: {
+						id: nanoid(),
+						title,
+						content,
+						userId,
+					},
+				};
+			},
+		},
+	},
 });
 
 // Exporting the action creaters (an object with type field and payload if any)
-export const {} = postApiSlice.actions;
+export const { addedPost } = postSlice.actions;
 
 // Exporting reducers to include in the store
-export default postApiSlice.reducer;
+export default postSlice.reducer;
 
 // Selectors
 // retrieves the state from the post slice
