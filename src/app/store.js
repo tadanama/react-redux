@@ -4,8 +4,6 @@ import { postApiSlice } from "../features/post/postApiSlice";
 
 export const store = configureStore({
 	reducer: {
-		counter: counterReducer,
-		[postApiSlice.reducerPath]: postApiSlice.reducer,
 	},
 	// Middleware enables caching functionality
 	middleware: (getDefaultMiddleware) => {
