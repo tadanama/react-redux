@@ -1,12 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "../features/counter/counterSlice";
-import { postApiSlice } from "../features/post/postApiSlice";
+import postReducer from "../features/posts/postsSlice";
 
 export const store = configureStore({
 	reducer: {
-	},
-	// Middleware enables caching functionality
-	middleware: (getDefaultMiddleware) => {
-		return getDefaultMiddleware().concat(postApiSlice.middleware);
+		// The key below (post in this case) is the name that we will use to access the state later
+		// state.<keyBelow> (state.post in this case)
+		post: postReducer,
 	},
 });
