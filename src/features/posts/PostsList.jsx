@@ -18,7 +18,7 @@ function PostsList() {
 		.slice()
 		.sort((a, b) => b.date.localeCompare(a.date));
 
-	// Map through all of the elements to display title, content and author
+	// Map through all of the elements to display title, content, author, how long ago it was posted and the like and dislike button
 	const renderedPosts = orderedPosts.map((post) => (
 		<article key={post.id}>
 			<h2>{post.title}</h2>
