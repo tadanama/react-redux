@@ -1,7 +1,13 @@
 import { useState } from "react";
 
+import PostsList from "./features/posts/PostsList";
+
 function App() {
-	return <></>;
+	return (
+		<>
+			<PostsList />
+		</>
+	);
 }
 
 export default App;
