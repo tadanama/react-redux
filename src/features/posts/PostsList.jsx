@@ -5,6 +5,7 @@ import { selectAllPosts } from "./postsSlice";
 import { selectAllUsers } from "../users/usersSlice";
 import PostAuthor from "./PostAuthor";
 import TimeAgo from "./TimeAgo";
+import ReactionButtons from "./ReactionButtons";
 
 function PostsList() {
 	// Retrieve the state of the posts
@@ -24,6 +25,7 @@ function PostsList() {
 			<p>{post.content}</p>
 			<PostAuthor userId={post.userId} />
 			<TimeAgo timestamp={post.date} />
+            <ReactionButtons post={post}/>
 		</article>
 	));
 	return (
