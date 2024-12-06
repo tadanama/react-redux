@@ -1,15 +1,21 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
+import { sub } from "date-fns";
 
 const initialState = [
 	{
 		id: 1,
 		title: "I am learning redux",
 		content: "Keep going, you are doing great!!",
+		// Store the date in the format of a timestamp
+		// Timestamp below is the timestamp of 10 minutes ago from the current timestamp
+		date: sub(new Date(), { minutes: 10 }).toISOString(),
 	},
 	{
 		id: 2,
 		title: "You are on the right track",
 		content: "Don't think negative of yourself and believe you can do it",
+		// Timestamp below is the timestamp of 5 minutes ago from the current timestamp
+		date: sub(new Date(), { minutes: 5 }).toISOString(),
 	},
 ];
 
@@ -28,7 +34,7 @@ const postSlice = createSlice({
 				// Did'nt have to specify state.post because already inside the post slice
 				state.push(action.payload);
 			},
-            // Format the payload
+			// Format the payload
 			prepare(title, content, userId) {
 				return {
 					payload: {
@@ -36,6 +42,7 @@ const postSlice = createSlice({
 						title,
 						content,
 						userId,
+						date: new Date().toISOString(),
 					},
 				};
 			},
