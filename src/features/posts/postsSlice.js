@@ -9,6 +9,10 @@ const initialState = [
 		// Store the date in the format of a timestamp
 		// Timestamp below is the timestamp of 10 minutes ago from the current timestamp
 		date: sub(new Date(), { minutes: 10 }).toISOString(),
+		reactions: {
+			likes: 0,
+			dislikes: 0,
+		},
 	},
 	{
 		id: 2,
@@ -16,6 +20,10 @@ const initialState = [
 		content: "Don't think negative of yourself and believe you can do it",
 		// Timestamp below is the timestamp of 5 minutes ago from the current timestamp
 		date: sub(new Date(), { minutes: 5 }).toISOString(),
+		reactions: {
+			likes: 0,
+			dislikes: 0,
+		},
 	},
 ];
 
@@ -43,15 +51,28 @@ const postSlice = createSlice({
 						content,
 						userId,
 						date: new Date().toISOString(),
+						reactions: {
+							likes: 0,
+							dislikes: 0,
+						},
 					},
 				};
 			},
+		},
+		addedReactions: (state, action) => {
+			// Destructure payload
+			const { postId, reaction } = action.payload;
+            // Retrieve the post with the given post id
+            const existingPost = state.find(post => post.id === postId);
+            if (existingPost){
+                existingPost.reactions[reaction]++;
+            }
 		},
 	},
 });
 
 // Exporting the action creaters (an object with type field and payload if any)
-export const { addedPost } = postSlice.actions;
+export const { addedPost, addedReactions } = postSlice.actions;
 
 // Exporting reducers to include in the store
 export default postSlice.reducer;
