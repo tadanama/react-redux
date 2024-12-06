@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { selectAllPosts } from "./postsSlice";
 import { selectAllUsers } from "../users/usersSlice";
 import PostAuthor from "./PostAuthor";
+import TimeAgo from "./TimeAgo";
 
 function PostsList() {
 	// Retrieve the state of the posts
@@ -15,7 +16,8 @@ function PostsList() {
 		<article key={post.id}>
 			<h2>{post.title}</h2>
 			<p>{post.content}</p>
-            <PostAuthor userId={post.userId}/>
+			<PostAuthor userId={post.userId} />
+			<TimeAgo timestamp={post.date} />
 		</article>
 	));
 	return (
