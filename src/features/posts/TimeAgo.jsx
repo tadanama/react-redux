@@ -4,7 +4,7 @@ import { formatDistanceToNow } from "date-fns";
 function TimeAgo({ timestamp }) {
 	return (
 		<>
-			<span> Posted {formatDistanceToNow(timestamp)} ago</span>
+			<span> Posted {formatDistanceToNow(timestamp)} ago </span>
 		</>
 	);
 }
