@@ -9,7 +9,7 @@ function PostsExcerpt({ post }) {
 	return (
 		<article>
 			<h2>{post.title}</h2>
-			<p>{post.body}</p>
+			<p>{post.body.substring(0, 75)}...</p>
 			<Link to={`post/${post.id}`}>View post </Link>
 			<PostAuthor userId={post.userId} />
 			<TimeAgo timestamp={post.date} />
