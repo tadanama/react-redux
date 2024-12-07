@@ -39,8 +39,8 @@ function AddPostForm() {
 				setAddRequestStatus("pending");
 
 				// Dispatching actions to add new post asynchronoulsy
-				// wrap function throws an error if action is rejected
-				dispatch(addedAsyncPost({ title, body: content, userId })).wrap();
+				// unwrap function throws an error if action is rejected
+				dispatch(addedAsyncPost({ title, body: content, userId })).unwrap();
 
 				setTitle("");
 				setContent("");
