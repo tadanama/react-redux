@@ -86,7 +86,7 @@ const postSlice = createSlice({
 		builder
 			// execute reducer below when fetching posts
 			.addCase(fetchposts.pending, (state) => {
-				state.status = "pending";
+				state.status = "loading";
 				// console.log("fetchPosts is pending");
 			})
 			// execute reducer below when fetching posts is successfuly done
