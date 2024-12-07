@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { addedPost } from "./postsSlice";
+import { addedPost, addedAsyncPost } from "./postsSlice";
 import { selectAllUsers } from "../users/usersSlice";
 
 function AddPostForm() {
 	const [title, setTitle] = useState("");
 	const [content, setContent] = useState("");
 	const [userId, setUserId] = useState("");
+	const [addRequestStatus, setAddRequestStatus] = useState("idle");
 
 	const dispatch = useDispatch();
 
@@ -21,18 +22,34 @@ function AddPostForm() {
 	));
 
 	// Dsiable the button when one of the fields is not filled in
-	const canCreate = Boolean(title) && Boolean(content) && Boolean(userId);
+	const canCreate =
+		Boolean(title) &&
+		Boolean(content) &&
+		Boolean(userId) &&
+		addRequestStatus === "idle";
 
 	const handleCreatePostSubmit = (event) => {
 		event.preventDefault();
 
 		// Dispatch only when title, content and userId is not empty
 		if (canCreate) {
-			dispatch(addedPost(title, content, userId));
+			// Dispatching actions to add new post synchronoulsy
+			// dispatch(addedPost(title, content, userId));
+			try {
+				setAddRequestStatus("pending");
 
-			setTitle("");
-			setContent("");
-			setUserId("");
+				// Dispatching actions to add new post asynchronoulsy
+				// wrap function throws an error if action is rejected
+				dispatch(addedAsyncPost({ title, body: content, userId })).wrap();
+
+				setTitle("");
+				setContent("");
+				setUserId("");
+			} catch (error) {
+				console.log(error);
+			} finally {
+				setAddRequestStatus("idle");
+			}
 		}
 	};
 
