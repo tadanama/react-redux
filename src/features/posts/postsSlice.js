@@ -147,3 +147,7 @@ export const getPostStatus = (state) => state.post.status;
 
 // Retrieves the error message
 export const getPostError = (state) => state.post.error;
+
+// Retrieves a post by id
+export const selectPostbyId = (state, postId) =>
+	state.post.posts.find((post) => post.id === postId);
