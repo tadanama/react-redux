@@ -38,6 +38,19 @@ export const addedAsyncPost = createAsyncThunk(
 	}
 );
 
+export const updatedPost = createAsyncThunk(
+	"posts/updatedPost",
+	async (postData) => {
+		const { id } = postData;
+		try {
+			const result = await axios.put(`${POSTS_URL}/${id}`, postData);
+			return result.data;
+		} catch (error) {
+			return error.message;
+		}
+	}
+);
+
 const postSlice = createSlice({
 	name: "posts",
 	initialState,
@@ -128,6 +141,20 @@ const postSlice = createSlice({
 					dislikes: 0,
 				};
 				state.posts.push(action.payload);
+			})
+			.addCase(updatedPost.fulfilled, (state, action) => {
+				if (!action.payload.id) {
+					console.log("Cannot update");
+					console.log(action.payload);
+					return;
+				}
+
+				const { id } = action.payload;
+				// Filter the post other than the newly updated post
+				const posts = state.posts.filter((post) => post.id !== id);
+				// Add the current timestamp
+				action.payload.date = new Date().toISOString();
+				state.posts = [...posts, action.payload];
 			});
 	},
 });
