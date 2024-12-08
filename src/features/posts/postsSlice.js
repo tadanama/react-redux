@@ -44,7 +44,22 @@ export const updatedPost = createAsyncThunk(
 		const { id } = postData;
 		try {
 			const result = await axios.put(`${POSTS_URL}/${id}`, postData);
-			return result.data;
+			return postData;
+		} catch (error) {
+			return error.message;
+		}
+	}
+);
+
+export const deletedPost = createAsyncThunk(
+	"posts/deletedPost",
+	async (postData) => {
+		const { id } = postData;
+		try {
+			const result = await axios.delete(`${POSTS_URL}/${id}`);
+			if (result?.status === 200) return postData;
+
+			return `${result?.status}: ${result?.statusText}`;
 		} catch (error) {
 			return error.message;
 		}
@@ -132,8 +147,8 @@ const postSlice = createSlice({
 				state.error = action.error.message;
 			})
 			.addCase(addedAsyncPost.fulfilled, (state, action) => {
-				console.log("added post asynchronously");
-				console.log(action.payload);
+				// console.log("added post asynchronously");
+				// console.log(action.payload);
 				action.payload.userId = Number(action.payload.userId);
 				action.payload.date = new Date().toISOString();
 				action.payload.reactions = {
@@ -155,6 +170,17 @@ const postSlice = createSlice({
 				// Add the current timestamp
 				action.payload.date = new Date().toISOString();
 				state.posts = [...posts, action.payload];
+			})
+			.addCase(deletedPost.fulfilled, (state, action) => {
+				if (!action.payload.id) {
+					console.log("Cannot delete");
+					console.log(action.payload);
+					return;
+				}
+				// Filter posts
+				const { id } = action.payload;
+				const posts = state.posts.filter((post) => post.id !== Number(id));
+				state.posts = posts;
 			});
 	},
 });
