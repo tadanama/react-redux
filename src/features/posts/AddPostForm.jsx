@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { addedPost, addedAsyncPost } from "./postsSlice";
 import { selectAllUsers } from "../users/usersSlice";
@@ -11,6 +12,7 @@ function AddPostForm() {
 	const [addRequestStatus, setAddRequestStatus] = useState("idle");
 
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	// Retrieve all users from the redux store
 	const users = useSelector(selectAllUsers);
@@ -45,6 +47,7 @@ function AddPostForm() {
 				setTitle("");
 				setContent("");
 				setUserId("");
+				navigate("/");
 			} catch (error) {
 				console.log(error);
 			} finally {
