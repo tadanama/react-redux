@@ -1,11 +1,12 @@
 import React from "react";
 import { selectPostbyId } from "./postsSlice";
 import { useSelector } from "react-redux";
+import { useParams, Link } from "react-router-dom";
 
 import PostAuthor from "./PostAuthor";
 import TimeAgo from "./TimeAgo";
 import ReactionButtons from "./ReactionButtons";
-import { useParams } from "react-router-dom";
+import EditPostForm from "./EditPostForm";
 
 function SinglePostPage() {
 	// Retrieve specific postId using useParams
@@ -22,6 +23,7 @@ function SinglePostPage() {
 		<article>
 			<h2>{post.title}</h2>
 			<p>{post.body}</p>
+			<Link to={`/post/edit/${post.id}`}>Edit post </Link>
 			<PostAuthor userId={post.userId} />
 			<TimeAgo timestamp={post.date} />
 			<ReactionButtons post={post} />
