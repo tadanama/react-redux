@@ -7,7 +7,9 @@ import "./index.css";
 import App from "./App.jsx";
 
 import { fetchUsers } from "./features/users/usersSlice.js";
+import { fetchposts } from "./features/posts/postsSlice.js";
 
+store.dispatch(fetchposts());
 store.dispatch(fetchUsers());
 
 createRoot(document.getElementById("root")).render(

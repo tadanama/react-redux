@@ -21,16 +21,17 @@ function PostsList() {
 	// Get the error when fetching posts from redux store
 	const postsError = useSelector(getPostError);
 
-	const dispatch = useDispatch();
+	// const dispatch = useDispatch();
 
 	// Run useEffect on first render and if postStatus changes
 	// dispatch is provided as the dependency to avoid eslint warnings
 	// Fetch posts if status is idle
-	useEffect(() => {
-		if (postsStatus === "idle") {
-			dispatch(fetchposts());
-		}
-	}, [postsStatus, dispatch]);
+	//? No need to fetch the post again because it it already fetched before the App component is rendered
+	// useEffect(() => {
+	// 	if (postsStatus === "idle") {
+	// 		dispatch(fetchposts());
+	// 	}
+	// }, [postsStatus, dispatch]);
 
 	// Display differnt content depending on posts status
 	let content;
