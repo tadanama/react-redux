@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 
-import { updatedPost, selectPostbyId } from "./postsSlice";
+import { updatedPost, selectPostbyId, deletedPost } from "./postsSlice";
 import { selectAllUsers } from "../users/usersSlice";
 
 function EditPostForm() {
@@ -77,6 +77,29 @@ function EditPostForm() {
 		}
 	};
 
+	const handleDelete = () => {
+		try {
+			setAddRequestStatus("pending");
+
+			dispatch(
+				deletedPost({
+					id: post.id,
+				})
+			).unwrap();
+
+			setTitle("");
+			setContent("");
+			setUserId("");
+
+			// Redirect user to the root page
+			navigate(`/`);
+		} catch (error) {
+			console.log("Failed to delete", error);
+		} finally {
+			setAddRequestStatus("idle");
+		}
+	};
+
 	return (
 		<>
 			<form onSubmit={handleCreatePostSubmit}>
@@ -110,6 +133,7 @@ function EditPostForm() {
 				{/* Disable button if all field is not filled in */}
 				<button disabled={canUpdate ? false : true}>Update</button>
 			</form>
+			<button onClick={handleDelete}>Delete</button>
 		</>
 	);
 }
