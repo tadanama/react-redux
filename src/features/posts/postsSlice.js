@@ -186,7 +186,7 @@ const postSlice = createSlice({
 
 				const { id } = action.payload;
 				// Filter the post other than the newly updated post
-				const posts = state.posts.filter((post) => post.id !== id);
+				// *const posts = state.posts.filter((post) => post.id !== id);
 				// Add the current timestamp
 				action.payload.date = new Date().toISOString();
 				//* state.posts = [...posts, action.payload];
@@ -200,7 +200,7 @@ const postSlice = createSlice({
 				}
 				// Filter posts
 				const { id } = action.payload;
-				const posts = state.posts.filter((post) => post.id !== Number(id));
+				//* const posts = state.posts.filter((post) => post.id !== Number(id));
 				//* state.posts = posts;
 				postAdapter.removeOne(state, id);
 			});
