@@ -14,6 +14,9 @@ function Header() {
 						<Link to={"post"}>
 							<li>Post</li>
 						</Link>
+						<Link to={"user"}>
+							<li>Users</li>
+						</Link>
 					</ul>
 				</nav>
 			</div>
