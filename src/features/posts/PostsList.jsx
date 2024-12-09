@@ -6,6 +6,7 @@ import {
 	getPostError,
 	getPostStatus,
 	fetchposts,
+	selectPostIds,
 } from "./postsSlice";
 import { selectAllUsers } from "../users/usersSlice";
 import PostsExcerpt from "./PostsExcerpt";
@@ -13,7 +14,10 @@ import PostsExcerpt from "./PostsExcerpt";
 function PostsList() {
 	// Retrieve the state of the posts
 	// Will return an array of posts because an array of posts is its initial state
-	const posts = useSelector(selectAllPosts);
+	//* const posts = useSelector(selectAllPosts);
+
+	//? Post id is already sorted in the createEntityAdapter
+	const orderedPostIds = useSelector(selectPostIds);
 
 	// Get the status when fetching posts from redux store
 	const postsStatus = useSelector(getPostStatus);
@@ -39,36 +43,35 @@ function PostsList() {
 	if (postsStatus === "pending") {
 		content = <h2>Loading...</h2>;
 	} else if (postsStatus === "succeeded") {
+
 		// Sort the post
 		// Recent post should go to the top
-
-		const orderedPosts = posts
-			.slice()
-			.sort((a, b) => b.date.localeCompare(a.date));
+		//* const orderedPosts = posts
+		//* 	.slice()
+		//* 	.sort((a, b) => b.date.localeCompare(a.date));
 
 		// Remove duplicate posts
 		// Refer to the comment section on Dave Gray's redux video for more info
-		const preContent = orderedPosts.filter((post, index) => {
-			if (index !== orderedPosts.length - 1) {
-				return post.id !== orderedPosts[index + 1].id;
-			}
-			return post;
-		});
+		//* const preContent = orderedPostIds.filter((post, index) => {
+		//* 	if (index !== orderedPostIds.length - 1) {
+		//* 		return post.id !== orderedPostIds[index + 1].id;
+		//* 	}
+		//* 	return post;
+		//* });
 
 		// Map through all of the elements to display title, content, author, how long ago it was posted and the like and dislike button from post excerpt
-		content = preContent.map((post) => (
-			<PostsExcerpt key={post.id} post={post} />
-		));
+		//* content = preContent.map((postId) => (
+		//* 	<PostsExcerpt key={postId} postId ={postId} />
+		//* ));
 
+		content = orderedPostIds.map(postId => (
+			<PostsExcerpt key={postId} postId={postId} />
+		))
 	} else if (postsStatus === "failed") {
 		content = <p>{postsError}</p>;
 	}
 
-	return (
-		<>
-			{content}
-		</>
-	);
+	return <>{content}</>;
 }
 
 export default PostsList;
