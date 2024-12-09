@@ -11,6 +11,8 @@ const postAdapter = createEntityAdapter({
 	sortComparer: (a, b) => b.date.localeCompare(a.date),
 });
 
+const initialState = postAdapter.getInitialState();
+
 // Set the initial state
 // Object with an array of posts, status and error
 //* const initialState = {
