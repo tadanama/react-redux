@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 import PostsList from "./features/posts/PostsList";
 import AddPostForm from "./features/posts/AddPostForm";
@@ -24,8 +25,11 @@ function App() {
 
 					<Route path="/user">
 						<Route index element={<UsersList />} />
-						<Route path=":userId" element={<UserPage />}/>
+						<Route path=":userId" element={<UserPage />} />
 					</Route>
+
+					{/* Reroute back to the homepage if invalid route */}
+					<Route path="*" element={<Navigate to={"/"} replace />} />
 				</Route>
 			</Routes>
 		</>
