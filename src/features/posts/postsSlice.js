@@ -204,3 +204,7 @@ export const getPostError = (state) => state.post.error;
 // Retrieves a post by id
 export const selectPostbyId = (state, postId) =>
 	state.post.posts.find((post) => post.id === postId);
+
+// Retrieve post by userId
+export const selectPostsByUserId = (state, userId) =>
+	state.post.posts.filter((post) => post.userId === userId);
