@@ -6,6 +6,7 @@ import AddPostForm from "./features/posts/AddPostForm";
 import SinglePostPage from "./features/posts/SinglePostPage";
 import Layout from "./components/Layout";
 import EditPostForm from "./features/posts/EditPostForm";
+import UsersList from "./features/users/UsersList";
 
 function App() {
 	return (
@@ -19,9 +20,12 @@ function App() {
 						<Route path=":postId" element={<SinglePostPage />} />
 						<Route path="edit/:postId" element={<EditPostForm />} />
 					</Route>
+
+					<Route path="/user">
+						<Route index element={<UsersList />} />
+					</Route>
 				</Route>
 			</Routes>
-
 		</>
 	);
 }
